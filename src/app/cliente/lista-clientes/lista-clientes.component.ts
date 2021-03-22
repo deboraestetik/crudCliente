@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/service/cliente.service';
 
@@ -11,7 +12,10 @@ export class ListaClientesComponent implements OnInit {
 
   clientes: Cliente[] = [];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(
+    private clienteService: ClienteService,
+    private toastr: ToastrService
+    ) { }
 
   ngOnInit() {
     this.listaClientes();
@@ -27,5 +31,22 @@ export class ListaClientesComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  deletar(id?: number) {
+    this.clienteService.deleteCliente(id).subscribe(
+      data => {
+        this.toastr.success("Cliente excluido com sucesso", "Ok",{
+        timeOut: 3000, positionClass: 'toast-top-center',
+        });
+        this.listaClientes();
+      },
+      err => {
+        this.toastr.error("Error ao excluir cliente", "Falha" ,{
+        timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+
+    )
   }
 }

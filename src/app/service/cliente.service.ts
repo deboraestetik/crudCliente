@@ -23,10 +23,10 @@ export class ClienteService {
     public postCliente(cliente: Cliente): Observable<Cliente[]> {
       return this.httpClient.post<any[]>(this.clienteURL, cliente);
     }
-    public putCliente(cliente: Cliente): Observable<Cliente> {
-      return this.httpClient.put<Cliente>(this.clienteURL, cliente);
+    public putCliente(id: number, cliente: Cliente): Observable<Cliente> {
+      return this.httpClient.put<Cliente>(this.clienteURL +`/${id}` , cliente);
     }
-    public deleteCliente(id: number): Observable<Cliente> {
+    public deleteCliente(id?: number): Observable<Cliente> {
       return this.httpClient.delete<Cliente>(this.clienteURL + `/${id}`);
     }
 

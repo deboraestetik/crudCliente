@@ -1,3 +1,5 @@
+import { Data } from "@angular/router";
+
 export class Cliente {
 
   id?: number;
@@ -7,6 +9,12 @@ export class Cliente {
   telefone?: string;
   sexo?: string;
 
+  cliente?: Cliente;
+
+  clientes(data: Cliente){
+
+    this.cliente = data;
+  }
   constructor(nome: string, cpf: string, endereco: string, telefone: string, sexo: string){
 
     this.nome = nome;
